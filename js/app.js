@@ -226,12 +226,12 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log(ipAddr_userAgent);
 		*/
 		
-		alert("before request \n" + 
-		"\nstateParams.url : " + $stateParams.url + 
-		"\nstateParams.videoFormats : " + $stateParams.videoFormats + 
-		"\nstateParams.videoId : " + $stateParams.videoId + 
-		"\nscope.selectedFormat : " + $scope.selectedFormat + 
-		"\nipAddr_userAgent : " + $ipAddr_userAgent);
+		alert("before request \n");
+		alert("\nstateParams.url : " + $stateParams.url );
+		alert("\nstateParams.videoFormats : " + $stateParams.videoFormats );
+		alert("\nstateParams.videoId : " + $stateParams.videoId );
+		alert("\nscope.selectedFormat : " + $scope.selectedFormat );
+		alert("\nipAddr_userAgent : " + $ipAddr_userAgent );
 		
 		/*
 		$http({
