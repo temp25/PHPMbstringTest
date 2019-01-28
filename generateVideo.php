@@ -16,7 +16,7 @@ if (isset($_POST['videoUrl']))
 		$metadata = $availableFormats["metadata"];
 
 		//Send the response to client and proceed with video generation
-		respondOK();
+		//respondOK();
 
 		/* $progress = array();
 		$progress['videoId'] = $videoId;
@@ -24,8 +24,8 @@ if (isset($_POST['videoUrl']))
 		$progress['playlistId'] = $playlistId;
 		$progress['videoUrl'] = $videoUrl; */
 
-		$videoTitle = $_POST['title'];
-		$videoDescription = $_POST['description'];
+		//$videoTitle = $_POST['title'];
+		//$videoDescription = $_POST['description'];
 
 		$outputFileName = $videoId . ".mp4";
 
@@ -33,15 +33,28 @@ if (isset($_POST['videoUrl']))
 
 		//$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\" -c copy -metadata title=\"" . $videoTitle . "\" -metadata episode_id=\"" . $playlistId . "\" -metadata track=\"" . $videoId . "\" -metadata description=\"" . $videoDescription . "\" -metadata synopsis=\"" . $videoDescription . "\" " . $outputFileName;
 		
-		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\" -c copy";
+		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
 		
 		//foreach ($metadata as $metaDataName => $metaDataValue)
 		//{
 		//		$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
 		//}
 
-		$videoStreamQuery .= " " . $outputFileName;
+		$videoStreamQuery .= " -c copy " . $outputFileName;
+		
+		$testOut = "";
+		$testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
+		$testOut .= "\nvideoUrl : ".$videoUrl;
+		$testOut .= "\nselectedFormat : ".$selectedFormat;
+		$testOut .= "\navailableFormats : ".json_encode($availableFormats, true);
+		$testOut .= "\nvideoId : ".$videoId;
+		$testOut .= "\nstreamUrl : ".$streamUrl;
+		$testOut .= "\nmetadata : ".$metadata;
+		$testOut .= "\nvideoStreamQuery : ".$videoStreamQuery;
+		$testOut .= "\nzipOutputQuery : ".$zipOutputQuery;
+		echo $testOut;
 
+  /*
 		$process = new Process($videoStreamQuery);
 		$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
 		$process->start();
@@ -71,6 +84,7 @@ if (isset($_POST['videoUrl']))
 		$progress['data'] = nl2br("\nVideo generation complete...");
 
 		sendProgressToClient($progress, $ipAddr_userAgent);
+		*/
 
 }
 else

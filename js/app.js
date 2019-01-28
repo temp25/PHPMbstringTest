@@ -211,6 +211,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	$scope.generateVideo = function(){
 		
+		/*
 		console.log("$stateParams.url : ");
 		console.log($stateParams.url);
 		console.log("$stateParams.videoFormats : ");
@@ -221,6 +222,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log($scope.selectedFormat);
 		console.log("ipAddr_userAgent : ");
 		console.log(ipAddr_userAgent);
+		*/
 		
 		$http({
 			url: 'generateVideo.php',
@@ -234,9 +236,12 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
-			$state.go("route3", {
-				videoId: $stateParams.videoId
-			}, { location: false });
+			//$state.go("route3", {
+			//	videoId: $stateParams.videoId
+			//}, { location: false });
+			
+			alert(response.data);
+			
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
