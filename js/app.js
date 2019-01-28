@@ -200,14 +200,16 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
             filteredVideoFormats[key] = value;
         }
     });
+    
+    return filteredVideoFormats;
+}
 	
 	$scope.onFormatChange = function() {
 		var element = document.getElementById("defFormat");
 		if (typeof element != "undefined" && element != null)
 			element.remove();
+		alert("Format selected : "+$scope.selectedFormat);
 	};
-    return filteredVideoFormats;
-}
 	
 	$scope.generateVideo = function(){
 		
