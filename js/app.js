@@ -211,7 +211,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	$scope.generateVideo = function(){
 		$http({
-			url: pageUrl+'generateVideo.php',
+			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
 			'&availableFormats' + $stateParams.videoFormats +
