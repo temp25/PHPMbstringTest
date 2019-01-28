@@ -46,7 +46,7 @@ if (isset($_POST['videoUrl']))
 		$testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
 		$testOut .= "\nvideoUrl : ".$videoUrl;
 		$testOut .= "\nselectedFormat : ".$selectedFormat;
-		$testOut .= "\navailableFormats : ".json_encode($availableFormats, true);
+		$testOut .= "\navailableFormats : ".$availableFormats;
 		$testOut .= "\nvideoId : ".$videoId;
 		$testOut .= "\nstreamUrl : ".$streamUrl;
 		$testOut .= "\nmetadata : ".$metadata;

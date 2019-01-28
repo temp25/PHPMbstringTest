@@ -208,7 +208,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		var element = document.getElementById("defFormat");
 		if (typeof element != "undefined" && element != null)
 			element.remove();
-		alert("Format selected : "+$scope.selectedFormat);
+		//alert("Format selected : "+$scope.selectedFormat);
 	};
 	
 	$scope.generateVideo = function(){
@@ -225,6 +225,14 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log("ipAddr_userAgent : ");
 		console.log(ipAddr_userAgent);
 		*/
+		
+		alert("before request \n" + 
+		"\nstateParams.url : " + $stateParams.url + 
+		"\nstateParams.videoFormats : " + $stateParams.videoFormats + 
+		"\nstateParams.videoId : " + $stateParams.videoId + 
+		"\nscope.selectedFormat : " + $scope.selectedFormat + 
+		"\nipAddr_userAgent : " + $ipAddr_userAgent);
+		
 		
 		$http({
 			url: 'generateVideo.php',
