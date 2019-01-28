@@ -35,10 +35,10 @@ if (isset($_POST['videoUrl']))
 		
 		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\" -c copy";
 		
-		foreach ($metadata as $metaDataName => $metaDataValue)
-		{
-				$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
-		}
+		//foreach ($metadata as $metaDataName => $metaDataValue)
+		//{
+		//		$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
+		//}
 
 		$videoStreamQuery .= " " . $outputFileName;
 

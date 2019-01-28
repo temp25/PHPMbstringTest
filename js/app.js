@@ -15,7 +15,7 @@ var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
 var sizeRegex = /size=\s*(\d+)kB/g;
 
 // Enable pusher logging - don't include this in production 
-Pusher.logToConsole = false; 
+Pusher.logToConsole = true; 
 var pusher = new Pusher('a44d3a9ebac525080cf1', {
   cluster: 'ap2',
   forceTLS: true
@@ -85,7 +85,7 @@ request.open('GET', 'https://api.ipify.org/?format=json', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var data = JSON.parse(request.responseText);
-	var channel = pusher.subscribe('hotstar-video-download-v1'); 
+	var channel = pusher.subscribe('hotstar-video-download-v2'); 
 	ipAddr_userAgent = data.ip+"_"+navigator.userAgent;
 	channel.bind(ipAddr_userAgent, pusherEventCallback);
   } else {
