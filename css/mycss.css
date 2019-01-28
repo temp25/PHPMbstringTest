@@ -1,0 +1,83 @@
+input {
+  background: #fff;
+  border-radius: 2em;
+  border: 1px solid #1beabd;
+  padding: 0.8em;
+  color: #000;
+  font-size: 1.1em;
+  padding-left: 1.5em;
+
+  outline: none;
+  box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%),
+    inset 0px 4px 6px -5px hsl(0, 0%, 2%);
+}
+
+input:focus {
+  box-shadow: 0 0 5px 1px rgba(81, 203, 238, 1);
+}
+
+::-webkit-input-placeholder {
+  color: #cbd0d5;
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  color: #cbd0d5;
+  text-align: center;
+}
+
+::-ms-input-placeholder {
+  color: #cbd0d5;
+  text-align: center;
+}
+
+::placeholder {
+  color: #cbd0d5;
+  text-align: center;
+}
+
+.square_btn {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #67c5ff;
+  border: solid 2px #67c5ff;
+  border-radius: 3px;
+  transition: 0.4s;
+}
+
+div {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+hr {
+  height: 2px;
+  visibility: hidden;
+  margin-bottom: -1px;
+}
+
+#showHideConsole{
+	text-decoration: none;
+}
+
+#responseText {
+  width: 800px;
+  height: 800px;
+  background-color: black;
+  color: white;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 640px;
+  max-height: 320px;
+  font-size: 15px;
+}
+
+.centered {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}

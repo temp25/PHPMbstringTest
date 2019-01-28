@@ -1,0 +1,13 @@
+<phpunit backupGlobals="true" bootstrap="tests/bootstrap.php">
+
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory>src/</directory>
+		</whitelist>
+	</filter>
+	
+	<testsuite name="Unit Test">
+		<directory>tests/</directory>
+	</testsuite>
+	
+</phpunit>
