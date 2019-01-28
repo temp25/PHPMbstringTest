@@ -259,7 +259,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		});
 		
 		
-		alert("Generate video request invoked");
+		//alert("Generate video request invoked");
 		
 	};
 	
