@@ -226,14 +226,14 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log(ipAddr_userAgent);
 		*/
 		
-		alert("before request \n" + 
-		"\nstateParams.url : " + $stateParams.url + 
-		"\nstateParams.videoFormats : " + $stateParams.videoFormats + 
-		"\nstateParams.videoId : " + $stateParams.videoId + 
-		"\nscope.selectedFormat : " + $scope.selectedFormat + 
-		"\nipAddr_userAgent : " + $ipAddr_userAgent);
+		//alert("before request \n" + 
+		//"\nstateParams.url : " + $stateParams.url + 
+		//"\nstateParams.videoFormats : " + $stateParams.videoFormats + 
+		//"\nstateParams.videoId : " + $stateParams.videoId + 
+		//"\nscope.selectedFormat : " + $scope.selectedFormat + 
+		//"\nipAddr_userAgent : " + $ipAddr_userAgent);
 		
-		
+		/*
 		$http({
 			url: 'generateVideo.php',
 			method: "POST",
@@ -246,17 +246,19 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
-			//$state.go("route3", {
-			//	videoId: $stateParams.videoId
-			//}, { location: false });
-			
-			//alert(response.data);
-			
+			$state.go("route3", {
+				videoId: $stateParams.videoId
+			}, { location: false });
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
 		});
+		*/
+		
+		alert("Generate video request invoked");
+		
 	};
+	
 	
 });
 
