@@ -226,7 +226,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
-			'&availableFormats' + $stateParams.videoFormats +
+			'&availableFormats=' + $stateParams.videoFormats +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
 			'&uniqueId=' + ipAddr_userAgent,
