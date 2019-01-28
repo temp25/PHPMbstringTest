@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 use Symfony\Component\Process\Process;
 
 if (isset($_POST['videoUrl']))
