@@ -151,6 +151,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
   $scope.fetchFormats = function() {
 	
 	var videoUrl = $scope.urlTextBox;
+	console.log("videoUrl : "+videoUrl);
 	showLoading();
 			
 	$http({
@@ -162,6 +163,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	.then(function(response) {
 		//success
 		stopLoading();
+		console.log("Success : \n");
+		console.log(response.data);
 		if(response.data.isError === "false"){
 			showSuccessDialog("Located video in the playlist for the given url"); 
 			$state.go("route2", {
@@ -177,6 +180,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		
 	},
 	function(response) { // optional
+		console.log("Error : \n");
+		console.log(response.data);
 		showErrorDialog(response.data);
     });
     
