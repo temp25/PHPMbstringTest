@@ -199,6 +199,16 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			element.remove();
 	};
 	
+	$scope.filterVideoFormats = function(items) {
+    var filteredVideoFormats = {};
+    angular.forEach(items, function(value, key) {
+        if (!key.startsWith('hls-')) {
+            filteredVideoFormats[key] = value;
+        }
+    });
+    return filteredVideoFormats;
+}
+	
 	$scope.generateVideo = function(){
 		$http({
 			url: pageUrl+'generateVideo.php',
