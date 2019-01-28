@@ -149,7 +149,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
   $scope.fetchFormats = function() {
 	
 	var videoUrl = $scope.urlTextBox;
-	console.log("videoUrl : "+videoUrl);
+	//console.log("videoUrl : "+videoUrl);
 	showLoading();
 			
 	$http({
@@ -161,8 +161,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	.then(function(response) {
 		//success
 		stopLoading();
-		console.log("Success : \n");
-		console.log(response.data);
+		//console.log("Success : \n");
+		//console.log(response.data);
 		if(response.data.isError === false){
 			showSuccessDialog("Located video in the playlist for the given url"); 
 			$state.go("route2", {
@@ -176,8 +176,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		
 	},
 	function(response) { // optional
-		console.log("Error : \n");
-		console.log(response.data);
+		//console.log("Error : \n");
+		//console.log(response.data);
 		showErrorDialog(response.data);
     });
     
@@ -188,13 +188,13 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $state, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
-	console.log("$stateParams.videoFormats : ");
-	console.log($stateParams.videoFormats);
+	//console.log("$stateParams.videoFormats : ");
+	//console.log($stateParams.videoFormats);
 	
 	$scope.filterVideoFormats = function(items) {
     var filteredVideoFormats = {};
-	console.log("items : ");
-	console.log(items);
+	//console.log("items : ");
+	//console.log(items);
     angular.forEach(items, function(value, key) {
         if (key.startsWith('hls-')) {
             filteredVideoFormats[key] = value;
@@ -210,6 +210,18 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 }
 	
 	$scope.generateVideo = function(){
+		
+		console.log("$stateParams.url : ");
+		console.log($stateParams.url);
+		console.log("$stateParams.videoFormats : ");
+		console.log($stateParams.videoFormats);
+		console.log("$stateParams.videoId : ");
+		console.log($stateParams.videoId);
+		console.log("$scope.selectedFormat : ");
+		console.log($scope.selectedFormat);
+		console.log("ipAddr_userAgent : ");
+		console.log(ipAddr_userAgent);
+		
 		$http({
 			url: 'generateVideo.php',
 			method: "POST",

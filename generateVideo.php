@@ -1,5 +1,4 @@
 <?php
-ini_set('max_execution_time', 900); //wait for nax of 15minutes for the script to complete
 require '../vendor/autoload.php';
 use Symfony\Component\Process\Process;
 
