@@ -120,10 +120,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: "Controller2",
 		params: {
 			'url': '',
-			'source': '',
-			'videoFormats': [],
-			'videoId': '',
-			'playlistId': ''
+			'videoFormats': {},
+			'videoId': ''
 		}
     })
 	.state('route3', {
@@ -169,10 +167,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 			showSuccessDialog("Located video in the playlist for the given url"); 
 			$state.go("route2", {
 				url: videoUrl,
-				source: response.data.source,
-				videoFormats: response.data.availableFormats,
-				videoId: response.data.videoId,
-				playlistId: response.data.playlistId
+				videoFormats: response.data,
+				videoId: response.data.videoId
 			}, { location: false });			
 		}else{
 			showErrorDialog(response.data.errorMessage);
@@ -217,9 +213,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		$http({
 			url: pageUrl+'generateVideo.php',
 			method: "POST",
-			data:  'src=' + $stateParams.source +
-			'&videoUrl=' + $stateParams.url + 
-			'&playlistId=' + $stateParams.playlistId +
+			data: 'videoUrl=' + $stateParams.url +
+			'&availableFormats' + $stateParams.videoFormats +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
 			'&uniqueId=' + ipAddr_userAgent,
