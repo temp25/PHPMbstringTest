@@ -165,7 +165,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		stopLoading();
 		console.log("Success : \n");
 		console.log(response.data);
-		if(response.data.isError === "false"){
+		if(response.data.isError === false){
 			showSuccessDialog("Located video in the playlist for the given url"); 
 			$state.go("route2", {
 				url: videoUrl,
