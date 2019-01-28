@@ -192,20 +192,24 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $state, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
+	console.log("$stateParams.videoFormats : ");
+	console.log($stateParams.videoFormats);
+	
+	$scope.filterVideoFormats = function(items) {
+    var filteredVideoFormats = {};
+	console.log("items : ");
+	console.log(items);
+    angular.forEach(items, function(value, key) {
+        if (key.startsWith('hls-')) {
+            filteredVideoFormats[key] = value;
+        }
+    });
 	
 	$scope.onFormatChange = function() {
 		var element = document.getElementById("defFormat");
 		if (typeof element != "undefined" && element != null)
 			element.remove();
 	};
-	
-	$scope.filterVideoFormats = function(items) {
-    var filteredVideoFormats = {};
-    angular.forEach(items, function(value, key) {
-        if (!key.startsWith('hls-')) {
-            filteredVideoFormats[key] = value;
-        }
-    });
     return filteredVideoFormats;
 }
 	
