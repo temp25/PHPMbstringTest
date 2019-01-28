@@ -250,7 +250,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			//	videoId: $stateParams.videoId
 			//}, { location: false });
 			
-			alert(response.data);
+			//alert(response.data);
 			
 		},
 		function(response) { // optional
