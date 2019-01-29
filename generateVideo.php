@@ -4,17 +4,14 @@ use Symfony\Component\Process\Process;
 
 if (isset($_POST['videoUrl']))
 {
-		$ipAddr_userAgent = $_POST['uniqueId'];
+		
 		$videoUrl = $_POST['videoUrl'];
-		$availableFormats = json_decode($_POST['availableFormats'], true);
-		$selectedFormat = $_POST["videoFormat"];
+		$streamUrl = $_POST['streamUrl'];
+		$videoMetadata = $_POST['videoMetadata'];
 		$videoId = $_POST['videoId'];
-
-		//get stream url from available formats
-		$streamUrl = $availableFormats[$selectedFormat]["STREAM-URL"];
-
-		$metadata = $availableFormats["metadata"];
-
+		$selectedFormat = $_POST['videoFormat'];
+		$ipAddr_userAgent = $_POST['uniqueId'];
+		
 		//Send the response to client and proceed with video generation
 		//respondOK();
 
@@ -46,12 +43,11 @@ if (isset($_POST['videoUrl']))
 		$testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
 		$testOut .= "\nvideoUrl : ".$videoUrl;
 		$testOut .= "\nselectedFormat : ".$selectedFormat;
-		$testOut .= "\navailableFormats : ".print_r($_POST['availableFormats'], true);
+		$testOut .= "\streamUrl : ".$streamUrl;
 		$testOut .= "\nvideoId : ".$videoId;
-		$testOut .= "\nstreamUrl : ".$streamUrl;
-		$testOut .= "\nmetadata : ".$metadata;
-		$testOut .= "\nvideoStreamQuery : ".$videoStreamQuery;
-		$testOut .= "\nzipOutputQuery : ".$zipOutputQuery;
+		foreach( $videoMetadata as $metaDataName => $metaDataValue) {
+			$testOut .= "\n".$metaDataName." : ".$metaDataValue;
+		}
 		echo $testOut;
 
   /*

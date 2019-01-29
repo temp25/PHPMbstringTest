@@ -244,7 +244,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
-			'&availableFormats=' + $stateParams.videoFormats +
+			'&streamUrl=' + $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"] +
+			'&videoMetadata=' + $stateParams.videoFormats["metadata"] +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
 			'&uniqueId=' + ipAddr_userAgent,

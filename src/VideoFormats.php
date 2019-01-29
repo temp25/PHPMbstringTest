@@ -70,7 +70,7 @@
 		                  $metaData[$contentName]=$contentValue;
 		                  break;
 		         case "channelName": 
-		                  $metaData["copyright"]=$contentValue;
+		                  $metaData["copyright"]="©copyright ".$contentValue;
 		                  break;
 		         case "description": 
 		                  $metaData[$contentName]=$contentValue;
@@ -80,7 +80,7 @@
 		         case "broadcastDate": 
 		                  date_default_timezone_set("Asia/Calcutta");
 		                  $metaData["creation_time"]="".date("Y-m-d H:i:s", $contentValue);
-		                  $metaData["year"]="".date("d", $contentValue);
+		                  $metaData["year"]="".date("Y", $contentValue);
 		                  break;
 		         case "episodeNo": 
 		                  $metaData["episode_id"]=$contentValue;
@@ -90,7 +90,7 @@
 		                  $metaData[$contentName]=$contentValue;
 		                  break;
 		         case "showName": 
-		                  $metaData["show"]="©copyright ".$contentValue;
+		                  $metaData["show"]=$contentValue;
 		                  break;
 		         case "seasonNo": 
 		                  $metaData["season_number"]=$contentValue;
