@@ -43,6 +43,8 @@ var pusherEventCallback = function(event){
 	var message = event.message;
 	var data = message['data'];
 	var videoId = message['videoId'];
+	var msg = message['msg'];
+	console.log("msg : \n"+msg);
 	var consoleElement = document.querySelector('#responseText');
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";

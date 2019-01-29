@@ -25,8 +25,22 @@ if (isset($_POST['videoUrl']))
 
 		//$videoTitle = $_POST['title'];
 		//$videoDescription = $_POST['description'];
+		
+		$videoGenerationCommand = array();
+		array_push($videoGenerationCommand, getcwd()."/ffmpeg");
+		array_push($videoGenerationCommand, "-i");
+		array_push($videoGenerationCommand, $streamUrl);
 
 		$outputFileName = $videoId . ".mp4";
+		
+		$videoZipCommand = "";
+		$videoZipCommand .= "zip";
+		$videoZipCommand .= "-D";
+		$videoZipCommand .= "-m";
+		$videoZipCommand .= "-9";
+		$videoZipCommand .= "-v";
+		$videoZipCommand .= $videoId.".zip";
+		$videoZipCommand .= $outputFileName;
 
 		$zipOutputQuery = "zip -D -m -9 -v " . $videoId . ".zip " . $outputFileName;
 
@@ -34,24 +48,42 @@ if (isset($_POST['videoUrl']))
 		
 		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
 		
-		//foreach ($metadata as $metaDataName => $metaDataValue)
-		//{
-		//		$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
-		//}
+		foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
+		{
+			$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
+			array_push($videoGenerationCommand, "-metadata");
+			array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
+		}
+		
+		array_push($videoGenerationCommand, "-c");
+		array_push($videoGenerationCommand, "copy");
+		array_push($videoGenerationCommand, $outputFileName);
 
 		$videoStreamQuery .= " -c copy " . $outputFileName;
 		
+		$progress = array();
+		$progress["msg"] = "";
+		$progress["msg"] .= "\nzipOutputQuery : ".$zipOutputQuery;
+		$progress["msg"] .= "\nvideoStreamQuery : ".$videoStreamQuery;
+		$progress["msg"] .= "\nvideoGenerationCommand : ".json_encode($videoGenerationCommand, true);
+		$progress["msg"] .= "\nvideoZipCommand : ".json_encode($videoZipCommand, true);
+		
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		
 		$testOut = "";
-		$testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
-		$testOut .= "\nvideoUrl : ".$videoUrl;
-		$testOut .= "\nselectedFormat : ".$selectedFormat;
-		$testOut .= "\streamUrl : ".$streamUrl;
-		$testOut .= "\nvideoId : ".$videoId;
-		//$testOut .= "\nvideoMetadata : ".$videoMetadata;
-		foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
-			$testOut .= "\n".$metaDataName." : ".$metaDataValue;
-		}
+		// $testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
+		// $testOut .= "\nvideoUrl : ".$videoUrl;
+		// $testOut .= "\nselectedFormat : ".$selectedFormat;
+		// $testOut .= "\streamUrl : ".$streamUrl;
+		// $testOut .= "\nvideoId : ".$videoId;
+		// $testOut .= "\nvideoMetadata : ".$videoMetadata;
+		// foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
+			// $testOut .= "\n".$metaDataName." : ".$metaDataValue;
+		// }
+		$testOut .= "\nvideoStreamQuery : ". $videoStreamQuery;
+		$testOut .= "\nzipOutputQuery : ". $zipOutputQuery;
 		echo $testOut;
+		
 
   /*
 		$process = new Process($videoStreamQuery);
