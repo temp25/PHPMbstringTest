@@ -1,6 +1,7 @@
 var app = angular.module("app", ["ui.router"]);
 var ipAddr_userAgent = "";
 var pageUrl="";
+var video_Formats;
 var cProgressOptions = {
 	line_width: 6,
 	color: "#e08833",
@@ -189,7 +190,8 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 app.controller("Controller2", function($scope, $state, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
 	//console.log("$stateParams.videoFormats : ");
-	console.log("stateParams_videoFormats="+$stateParams.videoFormats);
+	video_Formats = $stateParams.videoFormats;
+	console.log("stateParams_videoFormats="+video_Formats);
 	
 	$scope.filterVideoFormats = function(items) {
     var filteredVideoFormats = {};
