@@ -221,7 +221,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	
 		
-		/*
+		
 		console.log("$stateParams.url : ");
 		console.log($stateParams.url);
 		console.log("$stateParams.videoFormats : ");
@@ -232,7 +232,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log($scope.selectedFormat);
 		console.log("ipAddr_userAgent : ");
 		console.log(ipAddr_userAgent);
-		*/
+		
 		
 		//alert("before request \n");
 		//alert("\nstateParams.url : " + $stateParams.url );
@@ -241,7 +241,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
 		
-		var urlP = $stateParams.url;
+		/* var urlP = $stateParams.url;
 		console.log(urlP);
 		var streamUrlP = $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"];
 		console.log(streamUrlP);
@@ -253,7 +253,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		console.log(selectedFormatP);
 		var ipAddr_userAgentP = ipAddr_userAgent;
 		console.log(ipAddr_userAgentP);	
-		alert("Generate video request invoked");
+		alert("Generate video request invoked"); */
 		
 		/* $http({
 			url: 'generateVideo.php',
