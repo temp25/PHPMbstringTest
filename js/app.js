@@ -194,17 +194,6 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	//console.log("$stateParams.videoFormats : ");
 	video_Formats = $stateParams.videoFormats;
 	console.log("stateParams_videoFormats="+video_Formats);
-	console.log("$stateParams.url : ");
-	console.log($stateParams.url);
-	console.log("$stateParams.videoFormats : ");
-	console.log($stateParams.videoFormats);
-	console.log("$stateParams.videoId : ");
-	console.log($stateParams.videoId);
-	console.log("$scope.selectedFormat : ");
-	console.log($scope.selectedFormat);
-	console.log("ipAddr_userAgent : ");
-	console.log(ipAddr_userAgent);
-	
 	
 	$scope.filterVideoFormats = function(items) {
     var filteredVideoFormats = {};
@@ -230,12 +219,28 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	$scope.generateVideo = function(){
 		
+		/*
+		console.log("$stateParams.url : ");
+		console.log($stateParams.url);
+		console.log("$stateParams.videoFormats : ");
+		console.log($stateParams.videoFormats);
+		console.log("$stateParams.videoId : ");
+		console.log($stateParams.videoId);
+		console.log("$scope.selectedFormat : ");
+		console.log($scope.selectedFormat);
+		console.log("ipAddr_userAgent : ");
+		console.log(ipAddr_userAgent);
+		*/
+		
 		//alert("before request \n");
 		//alert("\nstateParams.url : " + $stateParams.url );
 		//alert("\nstateParams.videoFormats : " + $stateParams.videoFormats );
 		//alert("\nstateParams.videoId : " + $stateParams.videoId );
 		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
+		
+		console.log($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		
 		
 		/* $http({
 			url: 'generateVideo.php',
