@@ -7,6 +7,7 @@
 		private $appState;
 		private $appStateJson;
 		private $headers;
+		private $playbackUrlData;
 		
 		public function __construct($videoUrl) {
 			//include all files under helper package
@@ -23,7 +24,7 @@
 			$this->headers[] = 'X-Country-Code: IN';
 			$this->headers[] = 'X-Platform-Code: JIO'; 
 		}
-
+		
 		private function isValidHotstarUrl() {
 			
 			if(preg_match('/(http|https)?:\/\/(www\.)?hotstar.com\/(?:.+?[\/-])+(?P<videoId>\d{10})/', $this->videoUrl, $match)){
@@ -119,7 +120,8 @@
 		   return $metaData;
 		}
 
-		private function getUrlFormats($playbackUrlresponse) {
+		private function getUrlFormats($playbackUrl, $playbackUrlresponse) {
+			//var_dump($this->headers);
 			$url_formats = array();
 			$infoArray = null;
 			foreach ( preg_split("/((\r?\n)|(\r\n?))/", $playbackUrlresponse) as $line ) {
@@ -137,7 +139,11 @@
 			        
 			        $kFormAverageBandwidthOrBandwidth = $this->getKForm(isset($infoArray["AVERAGE-BANDWIDTH"]) ? $infoArray["AVERAGE-BANDWIDTH"] : $infoArray["BANDWIDTH"]);
 			        $formatCode = "hls-".$kFormAverageBandwidthOrBandwidth; //eg hls-281 for 281469
-			        $infoArray["STREAM-URL"] = (substr($line, 0, 4) === "http") ? $line : str_replace("master.m3u8", $line, $playbackUrl); //if starts with http then it's direct url
+			        $streamUrl = (substr($line, 0, 4) === "http") ? $line : str_replace("master.m3u8", $line, $playbackUrl); //if starts with http then it's direct url
+					if (strpos($streamUrl, '~acl=/*~hmac') === false) { //check if the url data contains hmac. If not, add it from playback url
+						$streamUrl .= "&".$this->playbackUrlData;
+					}
+					$infoArray["STREAM-URL"] = $streamUrl;
 
 			        $url_formats[$formatCode] = $infoArray;
 
@@ -149,6 +155,11 @@
 			}
 
 			return $url_formats;
+		}
+		
+		private function getPlaybackUrlData($playbackUrl) {
+			$playbackUrlDataPieces = explode("?", $playbackUrl);
+			return count($playbackUrlDataPieces) === 2 ? $playbackUrlDataPieces[1] : "";
 		}
 
 		public function getAvailableFormats() {
@@ -208,8 +219,9 @@
 					throw new Exception("Error processing request for playbackUri");
 				}
 				$playbackUrl = $playbackUriResponseJson["body"]["results"]["item"]["playbackUrl"];
+				$this->playbackUrlData = $this->getPlaybackUrlData($playbackUrl);
 				$playbackUrlresponse = request($playbackUrl, $this->headers);
-				$url_formats = $this->getUrlFormats($playbackUrlresponse);
+				$url_formats = $this->getUrlFormats($playbackUrl, $playbackUrlresponse);
 				$url_formats["metadata"]=$videoMetadata;
 				$url_formats["videoId"] = $videoId;
 				$url_formats["isError"] = false;
