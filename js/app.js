@@ -245,7 +245,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
 			'&streamUrl=' + $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"] +
-			'&videoMetadata=' + $stateParams.videoFormats["metadata"] +
+			'&videoMetadata=' + JSON.stringify($stateParams.videoFormats["metadata"]) +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
 			'&uniqueId=' + ipAddr_userAgent,

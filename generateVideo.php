@@ -45,9 +45,10 @@ if (isset($_POST['videoUrl']))
 		$testOut .= "\nselectedFormat : ".$selectedFormat;
 		$testOut .= "\streamUrl : ".$streamUrl;
 		$testOut .= "\nvideoId : ".$videoId;
-		foreach( $videoMetadata as $metaDataName => $metaDataValue) {
+		/* foreach( $videoMetadata as $metaDataName => $metaDataValue) {
 			$testOut .= "\n".$metaDataName." : ".$metaDataValue;
-		}
+		} */
+		testOut .= "\nvideoMetadata : ".$videoMetadata;
 		echo $testOut;
 
   /*
