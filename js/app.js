@@ -254,11 +254,13 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.then(function(response) {
-			console.log("generateVideo request completed successfully "+response.data);
+			console.log("generateVideo request completed successfully ");
+			console.log(response.data);
+			alert(response.data);
 			
-			$state.go("route3", {
+			/* $state.go("route3", {
 				videoId: $stateParams.videoId
-			}, { location: false });
+			}, { location: false }); */
 			
 		},
 		function(response) { // optional
