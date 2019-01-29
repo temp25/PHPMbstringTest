@@ -11,6 +11,22 @@ use Symfony\Component\Process\Process;
 		$selectedFormat = $_POST['videoFormat'];
 		$ipAddr_userAgent = $_POST['uniqueId'];
 		
+		$progress = array();
+		$progress["msg"] = "\n videoUrl : ".$videoUrl;
+		sendProgressToClient($progress, $videoUrl);
+		
+		$progress = array();
+		$progress["msg"] = "\n streamUrl : ".$streamUrl;
+		sendProgressToClient($progress, $streamUrl);
+		
+		$progress = array();
+		$progress["msg"] = "\n selectedFormat : ".$selectedFormat;
+		sendProgressToClient($progress, $selectedFormat);
+		
+		$progress = array();
+		$progress["msg"] = "\n ipAddr_userAgent : ".$ipAddr_userAgent;
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		
 		$videoMetadataJson = json_decode($videoMetadata, true);
 		
 		//Send the response to client and proceed with video generation
@@ -50,14 +66,21 @@ use Symfony\Component\Process\Process;
 
 		$videoStreamQuery .= " -c copy " . $outputFileName;
 		
-		$progress = array();
-		$progress["msg"] = "";
-		$progress["msg"] .= "\nzipOutputQuery : ".$zipOutputQuery;
-		$progress["msg"] .= "\nvideoStreamQuery : ".$videoStreamQuery;
-		$progress["msg"] .= "\nvideoGenerationCommand : ".json_encode($videoGenerationCommand, true);
-		$progress["msg"] .= "\nvideoZipCommand : ".json_encode($videoZipCommand, true);
 		
+		//$progress["msg"] = "";
+		$progress = array();
+		$progress["msg"] = "\nzipOutputQuery : ".$zipOutputQuery;
 		sendProgressToClient($progress, $ipAddr_userAgent);
+		$progress = array();
+		$progress["msg"] = "\nvideoStreamQuery : ".$videoStreamQuery;
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		$progress = array();
+		$progress["msg"] = "\nvideoGenerationCommand : ".json_encode($videoGenerationCommand, true);
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		$progress = array();
+		$progress["msg"] = "\nvideoZipCommand : ".json_encode($videoZipCommand, true);
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		
 		
 		// $testOut = "";
 		// $testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
