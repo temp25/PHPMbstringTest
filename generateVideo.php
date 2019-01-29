@@ -26,14 +26,14 @@ use Symfony\Component\Process\Process;
 
 		$outputFileName = $videoId . ".mp4";
 		
-		$videoZipCommand = "";
-		$videoZipCommand .= "zip";
-		$videoZipCommand .= "-D";
-		$videoZipCommand .= "-m";
-		$videoZipCommand .= "-9";
-		$videoZipCommand .= "-v";
-		$videoZipCommand .= $videoId.".zip";
-		$videoZipCommand .= $outputFileName;
+		$videoZipCommand = array();
+		array_push($videoZipCommand, "zip");
+		array_push($videoZipCommand, "-D");
+		array_push($videoZipCommand, "-m");
+		array_push($videoZipCommand, "-9");
+		array_push($videoZipCommand, "-v");
+		array_push($videoZipCommand, $videoId.".zip");
+		array_push($videoZipCommand, $outputFileName);
 
 		$zipOutputQuery = "zip -D -m -9 -v " . $videoId . ".zip " . $outputFileName;
 
