@@ -239,13 +239,13 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
 		
-		console.log($stateParams.url);
-		console.log($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		console.log(typeof($stateParams.url));
+		console.log(typeof($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]));
 		console.log("len : "+(""+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]).length);
-		console.log(JSON.stringify($stateParams.videoFormats["metadata"]));
-		console.log($stateParams.videoId);
-		console.log($scope.selectedFormat);
-		console.log(ipAddr_userAgent);
+		console.log(typeof(JSON.stringify($stateParams.videoFormats["metadata"])));
+		console.log(typeof($stateParams.videoId));
+		console.log(typeof($scope.selectedFormat));
+		console.log(typeof(ipAddr_userAgent));
 		
 		
 		/* $http({
