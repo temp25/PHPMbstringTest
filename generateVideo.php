@@ -2,8 +2,7 @@
 require 'vendor/autoload.php';
 use Symfony\Component\Process\Process;
 
-if (isset($_POST['videoUrl']))
-{
+	if (isset($_POST['videoUrl'])) {
 		
 		$videoUrl = $_POST['videoUrl'];
 		$streamUrl = $_POST['streamUrl'];
@@ -16,12 +15,6 @@ if (isset($_POST['videoUrl']))
 		
 		//Send the response to client and proceed with video generation
 		//respondOK();
-
-		/* $progress = array();
-		$progress['videoId'] = $videoId;
-		$progress['data'] = nl2br($data);
-		$progress['playlistId'] = $playlistId;
-		$progress['videoUrl'] = $videoUrl; */
 
 		//$videoTitle = $_POST['title'];
 		//$videoDescription = $_POST['description'];
@@ -49,7 +42,6 @@ if (isset($_POST['videoUrl']))
 		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
 		
 		foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
-		{
 			$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
 			array_push($videoGenerationCommand, "-metadata");
 			array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
@@ -116,10 +108,7 @@ if (isset($_POST['videoUrl']))
 
 		sendProgressToClient($progress, $ipAddr_userAgent);
 		*/
-
-}
-else
-{
+} else {
 
 		echo "Invalid script invocation";
 		$ipAddr_userAgent = $_POST['uniqueId'];
