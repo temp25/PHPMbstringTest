@@ -241,16 +241,28 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
 		
+		var urlP = $stateParams.url;
+		console.log(urlP);
+		var streamUrlP = $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"];
+		console.log(streamUrlP);
+		var metadataP = JSON.stringify($stateParams.videoFormats["metadata"]);
+		console.log(metadataP);
+		var videoIdP = $stateParams.videoId;
+		console.log(videoIdP);
+		var selectedFormatP = $scope.selectedFormat;
+		console.log(selectedFormatP);
+		var ipAddr_userAgentP = ipAddr_userAgent;
+		console.log(ipAddr_userAgentP);		
 		
 		$http({
 			url: 'generateVideo.php',
 			method: "POST",
-			data: 'videoUrl=' + $stateParams.url +
-			'&streamUrl=' + $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"] +
-			'&videoMetadata=' + JSON.stringify($stateParams.videoFormats["metadata"]) +
-			'&videoId=' + $stateParams.videoId +
-			'&videoFormat=' + $scope.selectedFormat +
-			'&uniqueId=' + ipAddr_userAgent,
+			data: 'videoUrl=' + urlP +
+			'&streamUrl=' + streamUrlP +
+			'&videoMetadata=' + metadataP +
+			'&videoId=' + videoIdP +
+			'&videoFormat=' + selectedFormatP +
+			'&uniqueId=' + ipAddr_userAgentP,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.then(function(response) {
