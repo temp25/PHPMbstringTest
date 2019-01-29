@@ -12,6 +12,8 @@ if (isset($_POST['videoUrl']))
 		$selectedFormat = $_POST['videoFormat'];
 		$ipAddr_userAgent = $_POST['uniqueId'];
 		
+		$videoMetadataJson = json_decode($videoMetadata, true);
+		
 		//Send the response to client and proceed with video generation
 		//respondOK();
 
@@ -45,10 +47,10 @@ if (isset($_POST['videoUrl']))
 		$testOut .= "\nselectedFormat : ".$selectedFormat;
 		$testOut .= "\streamUrl : ".$streamUrl;
 		$testOut .= "\nvideoId : ".$videoId;
-		/* foreach( $videoMetadata as $metaDataName => $metaDataValue) {
+		//$testOut .= "\nvideoMetadata : ".$videoMetadata;
+		foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
 			$testOut .= "\n".$metaDataName." : ".$metaDataValue;
-		} */
-		$testOut .= "\nvideoMetadata : ".$videoMetadata;
+		}
 		echo $testOut;
 
   /*
