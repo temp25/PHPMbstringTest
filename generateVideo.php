@@ -14,10 +14,7 @@ use Symfony\Component\Process\Process;
 		$videoMetadataJson = json_decode($videoMetadata, true);
 		
 		//Send the response to client and proceed with video generation
-		//respondOK();
-
-		//$videoTitle = $_POST['title'];
-		//$videoDescription = $_POST['description'];
+		respondOK();
 		
 		$videoGenerationCommand = array();
 		array_push($videoGenerationCommand, getcwd()."/ffmpeg");
@@ -35,14 +32,14 @@ use Symfony\Component\Process\Process;
 		array_push($videoZipCommand, $videoId.".zip");
 		array_push($videoZipCommand, $outputFileName);
 
-		$zipOutputQuery = "zip -D -m -9 -v " . $videoId . ".zip " . $outputFileName;
+		//$zipOutputQuery = "zip -D -m -9 -v " . $videoId . ".zip " . $outputFileName;
 
 		//$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\" -c copy -metadata title=\"" . $videoTitle . "\" -metadata episode_id=\"" . $playlistId . "\" -metadata track=\"" . $videoId . "\" -metadata description=\"" . $videoDescription . "\" -metadata synopsis=\"" . $videoDescription . "\" " . $outputFileName;
 		
-		$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
+		//$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
 		
 		foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
-			$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
+			//$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
 			array_push($videoGenerationCommand, "-metadata");
 			array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
 		}
@@ -62,7 +59,7 @@ use Symfony\Component\Process\Process;
 		
 		sendProgressToClient($progress, $ipAddr_userAgent);
 		
-		$testOut = "";
+		// $testOut = "";
 		// $testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
 		// $testOut .= "\nvideoUrl : ".$videoUrl;
 		// $testOut .= "\nselectedFormat : ".$selectedFormat;
@@ -72,13 +69,11 @@ use Symfony\Component\Process\Process;
 		// foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
 			// $testOut .= "\n".$metaDataName." : ".$metaDataValue;
 		// }
-		$testOut .= "\nvideoStreamQuery : ". $videoStreamQuery;
-		$testOut .= "\nzipOutputQuery : ". $zipOutputQuery;
-		echo $testOut;
+		// $testOut .= "\nvideoStreamQuery : ". $videoStreamQuery;
+		// $testOut .= "\nzipOutputQuery : ". $zipOutputQuery;
+		// echo $testOut;
 		
-
-  /*
-		$process = new Process($videoStreamQuery);
+		$process = new Process($videoGenerationCommand);
 		$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
 		$process->start();
 
@@ -90,7 +85,7 @@ use Symfony\Component\Process\Process;
 				sendProgressToClient($progress, $ipAddr_userAgent);
 		}
 
-		$process = new Process($zipOutputQuery);
+		$process = new Process($videoZipCommand);
 		$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
 		$process->start();
 
@@ -107,7 +102,7 @@ use Symfony\Component\Process\Process;
 		$progress['data'] = nl2br("\nVideo generation complete...");
 
 		sendProgressToClient($progress, $ipAddr_userAgent);
-		*/
+		
 } else {
 
 		echo "Invalid script invocation";

@@ -256,11 +256,9 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
 			
-			alert(response.data);
-			
-			//$state.go("route3", {
-			//	videoId: $stateParams.videoId
-			//}, { location: false });
+			$state.go("route3", {
+				videoId: $stateParams.videoId
+			}, { location: false });
 			
 		},
 		function(response) { // optional
