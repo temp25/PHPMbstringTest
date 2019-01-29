@@ -189,7 +189,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 app.controller("Controller2", function($scope, $state, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
 	//console.log("$stateParams.videoFormats : ");
-	//console.log($stateParams.videoFormats);
+	console.log("stateParams_videoFormats="+$stateParams.videoFormats);
 	
 	$scope.filterVideoFormats = function(items) {
     var filteredVideoFormats = {};
@@ -212,6 +212,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	};
 	
 	$scope.generateVideo = function(){
+	
+	
 		
 		/*
 		console.log("$stateParams.url : ");
