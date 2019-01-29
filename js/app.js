@@ -211,6 +211,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		if (typeof element != "undefined" && element != null)
 			element.remove();
 		//alert("Format selected : "+$scope.selectedFormat);
+		console.log("selected format : "+$scope.selectedFormat);
+		console.log("stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
 	};
 	
 	$scope.generateVideo = function(){
