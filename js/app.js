@@ -252,9 +252,10 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		var selectedFormatP = $scope.selectedFormat;
 		console.log(selectedFormatP);
 		var ipAddr_userAgentP = ipAddr_userAgent;
-		console.log(ipAddr_userAgentP);		
+		console.log(ipAddr_userAgentP);	
+		alert("Generate video request invoked");
 		
-		$http({
+		/* $http({
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + urlP +
@@ -270,17 +271,15 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			console.log(response.data);
 			alert(response.data);
 			
-			/* $state.go("route3", {
+			$state.go("route3", {
 				videoId: $stateParams.videoId
-			}, { location: false }); */
+			}, { location: false });
 			
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
-		});
+		}); */
 		
-		
-		//alert("Generate video request invoked");
 		
 	};
 	
