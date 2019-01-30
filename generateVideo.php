@@ -13,15 +13,15 @@ if (isset($_POST['videoUrl']))
 	
 	$videoMetadataJson = json_decode($videoMetadata, true);
 	
-	$progress = array();
-	$progress['data'] = "**************POST args value**************";
-	$progress['data'] .= "\nvideoUrl : ".$_POST['videoUrl'];
-	$progress['data'] .= "\nstreamUrl : ".$_POST['streamUrl'];
-	$progress['data'] .= "\nvideoMetadata : ".$_POST['videoMetadata'];
-	$progress['data'] .= "\nvideoId : ".$_POST['videoId'];
-	$progress['data'] .= "\nvideoFormat : ".$_POST['videoFormat'];
-	$progress['data'] .= "\nuniqueId : ".$_POST['uniqueId'];
-	sendProgressToClient($progress, $ipAddr_userAgent);
+	// $progress = array();
+	// $progress['data'] = "**************POST args value**************";
+	// $progress['data'] .= "\nvideoUrl : ".$_POST['videoUrl'];
+	// $progress['data'] .= "\nstreamUrl : ".$_POST['streamUrl'];
+	// $progress['data'] .= "\nvideoMetadata : ".$_POST['videoMetadata'];
+	// $progress['data'] .= "\nvideoId : ".$_POST['videoId'];
+	// $progress['data'] .= "\nvideoFormat : ".$_POST['videoFormat'];
+	// $progress['data'] .= "\nuniqueId : ".$_POST['uniqueId'];
+	// sendProgressToClient($progress, $ipAddr_userAgent);
 	
 	//Send the response to client and proceed with video generation
 	respondOK();
