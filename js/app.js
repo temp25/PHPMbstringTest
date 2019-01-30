@@ -239,6 +239,9 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
 		
+		console.log("Stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]+"\n\n");
+		console.log($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		
 		 $http({
 			url: 'generateVideo.php',
 			method: "POST",
@@ -253,9 +256,9 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
 			
-			$state.go("route3", {
-				videoId: $stateParams.videoId
-			}, { location: false });
+			// $state.go("route3", {
+				// videoId: $stateParams.videoId
+			// }, { location: false });
 			
 		},
 		function(response) { // optional
