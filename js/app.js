@@ -150,7 +150,11 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	});
 	
 	$scope.isEnter = function (event) {
-		console.log("Key code : "+event.keyCode);
+		var keyPressed = event.which || event.keyCode || event.key;
+		if(keyPressed == 13 || keyPressed == "Enter") {
+			$scope.fetchFormats();
+			event.preventDefault();
+		}
 	}
 
   $scope.fetchFormats = function() {
