@@ -1,7 +1,7 @@
 <div class="container1">  
  
-		<input type="text" placeholder="Enter your video url here" ng-model="urlTextBox">
+		<input type="text" ng-keypress="isEnter($event)" placeholder="Enter your video url here" ng-model="urlTextBox">
     <hr>
-    <a href="" class="square_btn" ng-keypress="isEnter($event)" ng-click="fetchFormats()">Fetch Video</a>
+    <a href="" class="square_btn" ng-click="fetchFormats()">Fetch Video</a>
  
 </div>
