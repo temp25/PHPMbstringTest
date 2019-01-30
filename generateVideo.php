@@ -1,7 +1,9 @@
 <?php
 require 'vendor/autoload.php';
 use Symfony\Component\Process\Process;
+use Blocktrail\CryptoJSAES\CryptoJSAES;
 
-echo hash("sha256", $_POST["streamUrl"]);//var_export($_POST, true);
+$passphrase = "my passphrase";
+echo CryptoJSAES::decrypt($_POST["streamUrl"], $passphrase);
 
 ?>

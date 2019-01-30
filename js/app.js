@@ -219,6 +219,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	$scope.generateVideo = function(){
 		
+		jQuery('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>');
+		
 		/*
 		console.log("$stateParams.url : ");
 		console.log($stateParams.url);
@@ -240,13 +242,16 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
 		
 		console.log("Stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]+"\n\n");
-		console.log($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		
+		var passphrase = "my passphrase";
+		var encryptedStreamUrl = CryptoJS.AES.encrypt($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"], passphrase);
+		console.log("encryptedStreamUrl : "+encryptedStreamUrl);
 		
 		 $http({
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
-			'&streamUrl=' + $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"] +
+			'&streamUrl=' + encryptedStreamUrl +
 			'&videoMetadata=' + JSON.stringify($stateParams.videoFormats["metadata"]) +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
@@ -255,6 +260,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
+			
+			console.log(response.data);
 			
 			// $state.go("route3", {
 				// videoId: $stateParams.videoId
