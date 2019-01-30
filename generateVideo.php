@@ -13,27 +13,8 @@ if (isset($_POST['videoUrl']))
 	
 	$videoMetadataJson = json_decode($videoMetadata, true);
 	
-	// $progress = array();
-	// $progress['data'] = "**************POST args value**************";
-	// $progress['data'] .= "\nvideoUrl : ".$_POST['videoUrl'];
-	// $progress['data'] .= "\nstreamUrl : ".$_POST['streamUrl'];
-	// $progress['data'] .= "\nvideoMetadata : ".$_POST['videoMetadata'];
-	// $progress['data'] .= "\nvideoId : ".$_POST['videoId'];
-	// $progress['data'] .= "\nvideoFormat : ".$_POST['videoFormat'];
-	// $progress['data'] .= "\nuniqueId : ".$_POST['uniqueId'];
-	// sendProgressToClient($progress, $ipAddr_userAgent);
-	
 	//Send the response to client and proceed with video generation
 	respondOK();
-
-	/* $progress = array();
-	$progress['videoId'] = $videoId;
-	$progress['data'] = nl2br($data);
-	$progress['playlistId'] = $playlistId;
-	$progress['videoUrl'] = $videoUrl; */
-
-	//$videoTitle = $_POST['title'];
-	//$videoDescription = $_POST['description'];
 	
 	$videoGenerationCommand = array();
 	array_push($videoGenerationCommand, getcwd()."/ffmpeg");
@@ -50,12 +31,6 @@ if (isset($_POST['videoUrl']))
 	array_push($videoZipCommand, "-v");
 	array_push($videoZipCommand, $videoId.".zip");
 	array_push($videoZipCommand, $outputFileName);
-
-	//$zipOutputQuery = "zip -D -m -9 -v " . $videoId . ".zip " . $outputFileName;
-
-	//$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\" -c copy -metadata title=\"" . $videoTitle . "\" -metadata episode_id=\"" . $playlistId . "\" -metadata track=\"" . $videoId . "\" -metadata description=\"" . $videoDescription . "\" -metadata synopsis=\"" . $videoDescription . "\" " . $outputFileName;
-	
-	//$videoStreamQuery = "./ffmpeg -i \"" . $streamUrl . "\"";
 	
 	foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
 		//$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
@@ -66,33 +41,7 @@ if (isset($_POST['videoUrl']))
 	array_push($videoGenerationCommand, "-c");
 	array_push($videoGenerationCommand, "copy");
 	array_push($videoGenerationCommand, $outputFileName);
-
-	//$videoStreamQuery .= " -c copy " . $outputFileName;
 	
-	// $progress = array();
-	// $progress["msg"] = "";
-	// $progress["msg"] .= "\nzipOutputQuery : ".$zipOutputQuery;
-	// $progress["msg"] .= "\nvideoStreamQuery : ".$videoStreamQuery;
-	// $progress["msg"] .= "\nvideoGenerationCommand : ".json_encode($videoGenerationCommand, true);
-	// $progress["msg"] .= "\nvideoZipCommand : ".json_encode($videoZipCommand, true);
-	
-	// sendProgressToClient($progress, $ipAddr_userAgent);
-	
-	// $testOut = "";
-	// $testOut .= "\nipAddr_userAgent : ". $ipAddr_userAgent;
-	// $testOut .= "\nvideoUrl : ".$videoUrl;
-	// $testOut .= "\nselectedFormat : ".$selectedFormat;
-	// $testOut .= "\streamUrl : ".$streamUrl;
-	// $testOut .= "\nvideoId : ".$videoId;
-	// $testOut .= "\nvideoMetadata : ".$videoMetadata;
-	// foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
-		// $testOut .= "\n".$metaDataName." : ".$metaDataValue;
-	// }
-	// $testOut .= "\nvideoStreamQuery : ". $videoStreamQuery;
-	// $testOut .= "\nzipOutputQuery : ". $zipOutputQuery;
-	// echo $testOut;
-	
-
 	$process = new Process($videoGenerationCommand);
 	$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
 	$process->start();

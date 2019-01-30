@@ -2,6 +2,6 @@
  
 		<input type="text" placeholder="Enter your video url here" ng-model="urlTextBox">
     <hr>
-    <a href="" class="square_btn" ng-keyup="$event.keyCode == 13 ? fetchFormats() : null" ng-click="fetchFormats()">Fetch Video</a>
+    <a href="" class="square_btn" ng-keypress="isEnter($event)" ng-click="fetchFormats()">Fetch Video</a>
  
 </div>

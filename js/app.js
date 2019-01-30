@@ -148,6 +148,10 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
 	});
+	
+	$scope.isEnter = function (event) {
+		console.log("Key code : "+event.keyCode);
+	}
 
   $scope.fetchFormats = function() {
 	
@@ -218,29 +222,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	};
 	
 	$scope.generateVideo = function(){
-		
-		/*
-		console.log("$stateParams.url : ");
-		console.log($stateParams.url);
-		console.log("$stateParams.videoFormats : ");
-		console.log($stateParams.videoFormats);
-		console.log("$stateParams.videoId : ");
-		console.log($stateParams.videoId);
-		console.log("$scope.selectedFormat : ");
-		console.log($scope.selectedFormat);
-		console.log("ipAddr_userAgent : ");
-		console.log(ipAddr_userAgent);
-		*/
-		
-		//alert("before request \n");
-		//alert("\nstateParams.url : " + $stateParams.url );
-		//alert("\nstateParams.videoFormats : " + $stateParams.videoFormats );
-		//alert("\nstateParams.videoId : " + $stateParams.videoId );
-		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
-		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
-		
-		//console.log("Stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]+"\n\n");
-		
+				
 		var encodedStreamUrl = encodeURIComponent($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
 		//console.log("encodedStreamUrl : "+encodedStreamUrl);
 		
