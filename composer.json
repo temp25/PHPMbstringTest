@@ -3,7 +3,8 @@
     "pusher/pusher-php-server": "^3.2", 	
     "symfony/process": "^4.2", 	
     "google/apiclient": "^2.0", 	
-    "ext-mbstring": "*" 
+    "ext-mbstring": "*",
+  "blocktrail/cryptojs-aes-php": "~0.1.0" 
   }, 
   
   "require-dev": {
