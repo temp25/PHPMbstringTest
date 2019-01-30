@@ -47,6 +47,7 @@ input:focus {
 }
 
 div {
+  color: white;
   display: block;
   text-align: center;
   vertical-align: middle;
