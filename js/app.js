@@ -147,6 +147,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	jQuery.getJSON(pageUrl+"getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
+		jQuery('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>');
 	});
 
   $scope.fetchFormats = function() {
@@ -213,13 +214,11 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		if (typeof element != "undefined" && element != null)
 			element.remove();
 		//alert("Format selected : "+$scope.selectedFormat);
-		console.log("selected format : "+$scope.selectedFormat);
-		console.log("stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		//console.log("selected format : "+$scope.selectedFormat);
+		//console.log("stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
 	};
 	
 	$scope.generateVideo = function(){
-		
-		jQuery('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>');
 		
 		/*
 		console.log("$stateParams.url : ");
