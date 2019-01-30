@@ -147,7 +147,6 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	jQuery.getJSON(pageUrl+"getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
-		jQuery('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>');
 	});
 
   $scope.fetchFormats = function() {
@@ -242,15 +241,14 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		
 		console.log("Stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]+"\n\n");
 		
-		var passphrase = "my passphrase";
-		var encryptedStreamUrl = CryptoJS.AES.encrypt($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"], passphrase);
-		console.log("encryptedStreamUrl : "+encryptedStreamUrl);
+		var encodedStreamUrl = encodeURIComponent($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		console.log("encodedStreamUrl : "+encodedStreamUrl);
 		
 		 $http({
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
-			'&streamUrl=' + encryptedStreamUrl +
+			'&streamUrl=' + encodedStreamUrl +
 			'&videoMetadata=' + JSON.stringify($stateParams.videoFormats["metadata"]) +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
