@@ -44,7 +44,7 @@ var pusherEventCallback = function(event){
 	var data = message['data'];
 	var videoId = message['videoId'];
 	var msg = message['msg'];
-	console.log("msg : \n"+msg);
+	//console.log("msg : \n"+msg);
 	var consoleElement = document.querySelector('#responseText');
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";
@@ -148,6 +148,14 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
 	});
+	
+	$scope.isEnter = function (event) {
+		var keyPressed = event.which || event.keyCode || event.key;
+		if(keyPressed == 13 || keyPressed == "Enter") {
+			$scope.fetchFormats();
+			event.preventDefault();
+		}
+	}
 
   $scope.fetchFormats = function() {
 	
@@ -193,7 +201,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	$scope.videoFormats = $stateParams.videoFormats;
 	//console.log("$stateParams.videoFormats : ");
 	video_Formats = $stateParams.videoFormats;
-	console.log("stateParams_videoFormats="+video_Formats);
+	//console.log("stateParams_videoFormats="+video_Formats);
 	
 	$scope.filterVideoFormats = function(items) {
     var filteredVideoFormats = {};
@@ -213,40 +221,20 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		if (typeof element != "undefined" && element != null)
 			element.remove();
 		//alert("Format selected : "+$scope.selectedFormat);
-		console.log("selected format : "+$scope.selectedFormat);
-		console.log("stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		//console.log("selected format : "+$scope.selectedFormat);
+		//console.log("stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
 	};
 	
 	$scope.generateVideo = function(){
-		
-		/*
-		console.log("$stateParams.url : ");
-		console.log($stateParams.url);
-		console.log("$stateParams.videoFormats : ");
-		console.log($stateParams.videoFormats);
-		console.log("$stateParams.videoId : ");
-		console.log($stateParams.videoId);
-		console.log("$scope.selectedFormat : ");
-		console.log($scope.selectedFormat);
-		console.log("ipAddr_userAgent : ");
-		console.log(ipAddr_userAgent);
-		*/
-		
-		//alert("before request \n");
-		//alert("\nstateParams.url : " + $stateParams.url );
-		//alert("\nstateParams.videoFormats : " + $stateParams.videoFormats );
-		//alert("\nstateParams.videoId : " + $stateParams.videoId );
-		//alert("\nscope.selectedFormat : " + $scope.selectedFormat );
-		//alert("\nipAddr_userAgent : " + ipAddr_userAgent );
-		
-		console.log("Stream url : "+$stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]+"\n\n");
-		console.log($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+				
+		var encodedStreamUrl = encodeURIComponent($stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"]);
+		//console.log("encodedStreamUrl : "+encodedStreamUrl);
 		
 		 $http({
 			url: 'generateVideo.php',
 			method: "POST",
 			data: 'videoUrl=' + $stateParams.url +
-			'&streamUrl=' + $stateParams.videoFormats[$scope.selectedFormat]["STREAM-URL"] +
+			'&streamUrl=' + encodedStreamUrl +
 			'&videoMetadata=' + JSON.stringify($stateParams.videoFormats["metadata"]) +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
@@ -256,9 +244,9 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
 			
-			// $state.go("route3", {
-				// videoId: $stateParams.videoId
-			// }, { location: false });
+			$state.go("route3", {
+				videoId: $stateParams.videoId
+			}, { location: false });
 			
 		},
 		function(response) { // optional
