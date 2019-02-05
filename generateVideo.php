@@ -20,8 +20,17 @@ if (isset($_POST['videoUrl']))
 	array_push($videoGenerationCommand, getcwd()."/ffmpeg");
 	array_push($videoGenerationCommand, "-i");
 	array_push($videoGenerationCommand, $streamUrl);
-
+	
 	$outputFileName = $videoId . ".mp4";
+	
+	foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
+		if($metaDataName == "title"){
+			$outputFileName = removeSpecialChars($metaDataValue);
+		}
+		array_push($videoGenerationCommand, "-metadata");
+		array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
+	}
+
 	
 	$videoZipCommand = array();
 	array_push($videoZipCommand, "zip");
@@ -31,12 +40,6 @@ if (isset($_POST['videoUrl']))
 	array_push($videoZipCommand, "-v");
 	array_push($videoZipCommand, $videoId.".zip");
 	array_push($videoZipCommand, $outputFileName);
-	
-	foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
-		//$videoStreamQuery .= " -metadata " . $metaDataName . "=\"" . $metaDataValue . "\"";
-		array_push($videoGenerationCommand, "-metadata");
-		array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
-	}
 	
 	array_push($videoGenerationCommand, "-c");
 	array_push($videoGenerationCommand, "copy");
@@ -78,6 +81,12 @@ if (isset($_POST['videoUrl']))
 		$progress['data'] = nl2br("Error occurred in receiving the post form data from the client");
 
 		sendProgressToClient($progress, $ipAddr_userAgent);
+}
+
+
+function removeSpecialChars($string) {
+   $string = str_replace(' ', '_', $string); // Replaces all spaces with underscore.
+   return preg_replace('/[^A-Za-z0-9_]/', '', $string); // Removes special chars.
 }
 
 /**
