@@ -25,7 +25,7 @@ if (isset($_POST['videoUrl']))
 	
 	foreach( $videoMetadataJson as $metaDataName => $metaDataValue) {
 		if($metaDataName == "title"){
-			$outputFileName = removeSpecialChars($metaDataValue);
+			$outputFileName = removeSpecialChars($metaDataValue).".mp4";
 		}
 		array_push($videoGenerationCommand, "-metadata");
 		array_push($videoGenerationCommand, $metaDataName."=\"".$metaDataValue."\"");
