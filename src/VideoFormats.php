@@ -34,15 +34,6 @@
 			return "";
 		}
 
-		private function getVideoId() {
-			$videoUrlParts = explode("/", $this->videoUrl);
-			$videoId = $videoUrlParts[count($videoUrlParts)-1];
-			if (is_numeric($videoId)) {
-				return $videoId;
-			}
-			throw new Exception("Invalid video id present in URL");
-		}
-
 		private function getKForm($num) {
 		    if($num < 1000){
 		        return $num;
@@ -173,14 +164,18 @@
 				if( strrpos($this->videoUrl, "/") == strlen($this->videoUrl)-1 ) {
 				    $this->videoUrl = substr($this->videoUrl, 0, strlen($this->videoUrl)-1);
 				}
+				
+				$videoId = $this->isValidHotstarUrl();
 					
-				if(!$this->isValidHotstarUrl()) {
+				if(!$videoId) {
 					throw new Exception("Invalid Hotstar video URL");
 				}
-				$videoId = $this->getVideoId();
-				$metaDataRootKey = str_replace('hotstar.com', '', substr($this->videoUrl, strpos($this->videoUrl, 'hotstar.com')))
-
-
+				//$videoId = $this->getVideoId();
+				
+				$metaDataRootKey = str_replace('hotstar.com', '', substr($this->videoUrl, strpos($this->videoUrl, 'hotstar.com')));
+				
+				//echo PHP_EOL."metaDataRootKey : ".$metaDataRootKey.PHP_EOL;
+				
 				$fileContents = file_get_contents($this->videoUrl);
 
 				if (preg_match('%<script>window.APP_STATE=(.*?)</script>%', $fileContents, $match)) {
@@ -198,8 +193,8 @@
 				    $keyParts = explode("/", $key);
 					
 					//if ($keyParts[count($keyParts)-1] == $videoId) {
-				    if ($key == $metaDataRootKey) {
-				    
+				    if ($key == $metaDataRootKey || in_array($videoId, $keyParts)) {
+						
 						$videoMetadata = $this->getVideoMetadata($value["initialState"]["contentData"]["content"]);
 				    
 						if ($videoMetadata["drmProtected"]) {
@@ -208,13 +203,13 @@
 							return json_encode($url_formats, true);
 						}
 						
-						
 				        $this->playbackUri = $videoMetadata["playbackUri"];
 				        break;
 				    }
 
 				}
 				$url = $this->playbackUri."&tas=10000";
+				//echo PHP_EOL."url : ".$url.PHP_EOL;
 				$playbackUriResponse = request($url, $this->headers);
 				$playbackUriResponseJson = json_decode($playbackUriResponse, true);
 				if ($playbackUriResponseJson["statusCodeValue"] != 200) {
