@@ -27,7 +27,7 @@
 		
 		private function isValidHotstarUrl() {
 			
-			if(preg_match('/(http|https)?:\/\/(www\.)?hotstar.com\/(?:.+?[\/-])+(?P<videoId>\d{10})/', $this->videoUrl, $match)){
+			if(preg_match('/((https?:\/\/)?(www\.)?)?hotstar.com\/(?:.+?[\/-])+(?P<videoId>\d{10})([\/|\w]*)/', $this->videoUrl, $match)){
 				return $match["videoId"];
 			}
 
@@ -178,6 +178,7 @@
 					throw new Exception("Invalid Hotstar video URL");
 				}
 				$videoId = $this->getVideoId();
+				$metaDataRootKey = str_replace('hotstar.com', '', substr($this->videoUrl, strpos($this->videoUrl, 'hotstar.com')))
 
 
 				$fileContents = file_get_contents($this->videoUrl);
@@ -196,7 +197,8 @@
 
 				    $keyParts = explode("/", $key);
 					
-				    if ($keyParts[count($keyParts)-1] == $videoId) {
+					//if ($keyParts[count($keyParts)-1] == $videoId) {
+				    if ($key == $metaDataRootKey) {
 				    
 						$videoMetadata = $this->getVideoMetadata($value["initialState"]["contentData"]["content"]);
 				    
