@@ -2,6 +2,7 @@ var app = angular.module("app", ["ui.router"]);
 var ipAddr_userAgent = "";
 var pageUrl="";
 var video_Formats;
+var serverConsoleOutput="";
 var cProgressOptions = {
 	line_width: 6,
 	color: "#e08833",
@@ -49,6 +50,7 @@ var pusherEventCallback = function(event){
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";
 		consoleElement.scrollTop = consoleElement.scrollHeight;
+		serverConsoleOutput += data+"<br/>";
 		
 		populateCompletionProgress(data);
 		
