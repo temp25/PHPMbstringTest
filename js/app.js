@@ -52,14 +52,40 @@ var pusherEventCallback = function(event){
 		
 		populateCompletionProgress(data);
 		
-		if(data.indexOf('Video generation complete') > -1){
+		if(data.indexOf('Video generation complete') != -1){
 			showSuccessDialog("Video generation complete");
 			var generationElement = document.querySelector('#videoGeneration');
-			var dbContainer = document.getElementById("dbContainer");
-			var dLinkElement = angular.element('<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>');
-			if (typeof generationElement != "undefined" && generationElement != null){
+			if (typeof generationElement != undefined){
 				generationElement.remove();
 			}
+
+			var videoUpload = document.getElementById("videoUpload");
+			var dLinkElement = angular.element('<br/><label>Video Link has been generated below</label><br/>');
+			angular.element(videoUpload).append(dLinkElement);
+			
+			//add click listener for videoUpload buttons
+			document.getElementById("dLink").addEventListener("click", function(){
+				var msg = "Download video function invoked";
+				console.log(msg);
+				alert(msg);
+			});
+			document.getElementById("dbLink").addEventListener("click", function(){
+				var msg = "Upload video to dropbox function invoked";
+				console.log(msg);
+				alert(msg);
+			});
+			document.getElementById("gdLink").addEventListener("click", function(){
+				var msg = "Upload video to google_drive function invoked";
+				console.log(msg);
+				alert(msg);
+			});
+			
+			document.getElementById("videoUploadContainer").style.display="block";
+			
+			
+			/* var dbContainer = document.getElementById("dbContainer");
+			
+			var dLinkElement = angular.element('<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>');
 			angular.element(dbContainer).append(dLinkElement);
 			var videoFileName = videoId + ".zip";
 			var options = {
@@ -78,7 +104,7 @@ var pusherEventCallback = function(event){
 				}
 			};
 			var dbSaveBtn = Dropbox.createSaveButton(pageUrl+videoFileName, videoFileName, options);
-			dbContainer.appendChild(dbSaveBtn);
+			dbContainer.appendChild(dbSaveBtn); */
 		}
 	}			
 };
