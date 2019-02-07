@@ -90,9 +90,9 @@ option, option:checked, option:hover  {
       background-color: #333;
 }
 
-select {
-      //border: 1 !important;.  /*Removes border*/
-  color: #67c5ff;
-  border: 0.5px solid #67c5ff;
-    background-color: transparent;
-  }
+/* select { */
+  /* //border: 1 !important;.  /*Removes border*/ */
+/* color: #67c5ff; */
+/* border: 0.5px solid #67c5ff; */
+/* background-color: transparent; */
+/* } */

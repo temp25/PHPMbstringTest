@@ -298,8 +298,21 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 	$scope.showHideText = "Show Console";
 	
 	$scope.showHideConsole = function(){
-		$scope.consoleVisibility = !$scope.consoleVisibility;
-		$scope.showHideText = $scope.consoleVisibility ? "Hide Console" : "Show Console";
+		//$scope.consoleVisibility = !$scope.consoleVisibility;
+		//$scope.showHideText = $scope.consoleVisibility ? "Hide Console" : "Show Console";
+		swal({
+			title: "<i>Console output</i>",
+			html: "<div style='width: 465px; height: 800px; background-color: black; color: white; overflow-x: auto; overflow-y: auto; max-width: 640px; max-height: 320px; font-size: 15px;'>"+serverConsoleOutput+"</div>", 
+			showConfirmButton: true,
+			showCancelButton: true,
+			confirmButtonText: "Download log",
+			cancelButtonText: "Dismiss",
+		}).then((result)=> {
+			if(result.value != undefined && result.value==true){
+				alert("Download log functionality yet to be implemented");
+				console.log("Download log invoked"); 
+			} 
+		});
 	};
 	
 });
