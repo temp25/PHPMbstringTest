@@ -315,7 +315,7 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 				var fileName = "ServerLog_"+$stateParams.videoId+".txt";
 
 				var downloadLogElement = document.createElement('a');
-				downloadLogElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(serverConsoleOutput));
+				downloadLogElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(serverConsoleOutput.replace(/<br \/>/gi, '')));
 				downloadLogElement.setAttribute('download', fileName);
 				downloadLogElement.click();
 			} 
