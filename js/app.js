@@ -50,7 +50,7 @@ var pusherEventCallback = function(event){
 	//if (typeof consoleElement != "undefined" && consoleElement != null){
 		//consoleElement.innerHTML += data+"<br/>";
 		//consoleElement.scrollTop = consoleElement.scrollHeight;
-		//serverConsoleOutput += data+"<br/>";
+		serverConsoleOutput += data+"<br/>";
 		
 		populateCompletionProgress(data);
 		
