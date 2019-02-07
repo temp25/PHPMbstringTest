@@ -47,10 +47,10 @@ var pusherEventCallback = function(event){
 	var msg = message['msg'];
 	//console.log("msg : \n"+msg);
 	var consoleElement = document.querySelector('#responseText');
-	if (typeof consoleElement != "undefined" && consoleElement != null){
-		consoleElement.innerHTML += data+"<br/>";
-		consoleElement.scrollTop = consoleElement.scrollHeight;
-		serverConsoleOutput += data+"<br/>";
+	//if (typeof consoleElement != "undefined" && consoleElement != null){
+		//consoleElement.innerHTML += data+"<br/>";
+		//consoleElement.scrollTop = consoleElement.scrollHeight;
+		//serverConsoleOutput += data+"<br/>";
 		
 		populateCompletionProgress(data);
 		
@@ -108,7 +108,7 @@ var pusherEventCallback = function(event){
 			var dbSaveBtn = Dropbox.createSaveButton(pageUrl+videoFileName, videoFileName, options);
 			dbContainer.appendChild(dbSaveBtn); */
 		}
-	}			
+	//}			
 };
 
 var request = new XMLHttpRequest();
