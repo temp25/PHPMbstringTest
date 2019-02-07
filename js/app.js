@@ -309,8 +309,15 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 			cancelButtonText: "Dismiss",
 		}).then((result)=> {
 			if(result.value != undefined && result.value==true){
-				alert("Download log functionality yet to be implemented");
-				console.log("Download log invoked"); 
+				//alert("Download log functionality yet to be implemented");
+				//console.log("Download log invoked");
+				
+				var fileName = "ServerLog_"+$stateParams.videoId+".txt";
+
+				var downloadLogElement = document.createElement('a');
+				downloadLogElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(serverConsoleOutput));
+				downloadLogElement.setAttribute('download', fileName);
+				downloadLogElement.click();
 			} 
 		});
 	};
