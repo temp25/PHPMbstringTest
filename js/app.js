@@ -68,11 +68,7 @@ var pusherEventCallback = function(event){
 			
 			//add click listener for videoUpload buttons
 			document.getElementById("dLink").href="downloadVideo.php?videoId="+videoId;
-			// document.getElementById("dLink").addEventListener("click", function(){
-				// var msg = "Download video function invoked";
-				// console.log(msg);
-				// alert(msg);
-			// });
+			
 			document.getElementById("dbLink").addEventListener("click", function(){
 				// var msg = "Upload video to dropbox function invoked";
 				// console.log(msg);
@@ -150,13 +146,71 @@ var pusherEventCallback = function(event){
 					
 				var absoluteFilePath = (window.location.href.split('#')[0]).replace(/\/?$/, '/') + videoFileName;
 				console.debug("absoluteFilePath : "+absoluteFilePath);
-				//Dropbox.save("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
 				Dropbox.save(absoluteFilePath, videoFileName, options);
 			});
+			
 			document.getElementById("gdLink").addEventListener("click", function(){
-				var msg = "Upload video to google_drive function invoked";
-				console.log(msg);
-				alert(msg);
+				if(Cookies.enabled){
+					//remove cookies if any from previous session
+					Cookies.expire('authCode');
+					Cookies.expire('authRedirectUri');
+					var popup = window.open("/oauthFetch.php", "AuthFetchWindow", 'width=800, height=600');
+					var pollTimer = window.setInterval(function() {
+								var authorizationCode = Cookies.get('authCode');
+								var authRedirectUri = Cookies.get('authRedirectUri');
+								if(authorizationCode!==undefined && authRedirectUri!==undefined) {
+									popup.close();
+									clearInterval(pollTimer);
+									swal({
+										title: 'Uploading file '+videoFileName+' to Google Drive',
+										allowOutsideClick: () => false,
+										onOpen: () => {
+											swal.showLoading();
+										}
+									});
+									$.ajax({
+										url: "UploadToGoogleDrive.php",
+										type: "POST",
+										data: {
+											authCode: authorizationCode,
+											fileName: videoFileName,
+										},
+									}).done(function(data) {
+										swal.close();
+										console.log("\nsuccess data : ");
+										console.log(data);
+										swal({
+											  type: 'success',
+											  title: "File "+videoFileName+" saved to Google Drive successfully",
+											  allowOutsideClick: () => false,
+											  showConfirmButton: false,
+											  timer: 2000, //dismiss after 2 seconds
+										 });
+									}).fail(function(data) {
+										swal.close();
+										console.log("\error data : ");
+										console.log(data);
+										swal({
+											type: 'error',
+											allowOutsideClick: () => false,
+											title: 'Error in uploading file '+videoFileName,
+											text: errorMessage,
+											footer: '',
+										});
+									});
+								}
+							
+						}, 10);
+				}else{
+					swal({
+						type: 'error',
+						allowOutsideClick: () => false,
+						title: 'Upload error',
+						text: 'Functionality disabled due to inavailability of cookies',
+						footer: 'Enable cookies and try again',
+					});
+				}
+				
 			});
 			
 			document.getElementById("videoUploadContainer").style.display="block";
