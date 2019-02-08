@@ -90,6 +90,17 @@ option, option:checked, option:hover  {
       background-color: #333;
 }
 
+img {
+	border: 1px solid transparent;
+}
+img:hover {
+	box-shadow: 0 0 5px 1px rgba(81, 203, 238, 1);
+}
+img:active {
+	box-shadow: 0 0 5px 1px rgba(81, 203, 238, 1);
+	transform: translateY(3px);
+}
+
 /* select { */
   /* //border: 1 !important;.  /*Removes border*/ */
 /* color: #67c5ff; */
