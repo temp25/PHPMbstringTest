@@ -78,6 +78,7 @@ var pusherEventCallback = function(event){
 				// console.log(msg);
 				// alert(msg);
 				
+				var isDropboxUploadDialogShown = false;
 				var options = {
 						files: [],
 
