@@ -45,6 +45,7 @@ var pusherEventCallback = function(event){
 	var data = message['data'];
 	var videoId = message['videoId'];
 	var msg = message['msg'];
+	var videoFileName = videoId + ".zip";
 	//console.log("msg : \n"+msg);
 	var consoleElement = document.querySelector('#responseText');
 	//if (typeof consoleElement != "undefined" && consoleElement != null){
@@ -66,15 +67,90 @@ var pusherEventCallback = function(event){
 			angular.element(videoUpload).append(dLinkElement);
 			
 			//add click listener for videoUpload buttons
-			document.getElementById("dLink").addEventListener("click", function(){
-				var msg = "Download video function invoked";
-				console.log(msg);
-				alert(msg);
-			});
+			document.getElementById("dLink").href="downloadVideo.php?videoId="+videoId;
+			// document.getElementById("dLink").addEventListener("click", function(){
+				// var msg = "Download video function invoked";
+				// console.log(msg);
+				// alert(msg);
+			// });
 			document.getElementById("dbLink").addEventListener("click", function(){
-				var msg = "Upload video to dropbox function invoked";
-				console.log(msg);
-				alert(msg);
+				// var msg = "Upload video to dropbox function invoked";
+				// console.log(msg);
+				// alert(msg);
+				
+				var options = {
+						files: [],
+
+						// Success is called once all files have been successfully added to the user's
+						// Dropbox, although they may not have synced to the user's devices yet.
+						success: function () {
+							// Indicate to the user that the files have been saved.
+							//alert("Success! Files saved to your Dropbox.");
+							console.debug("Success! Files saved to your Dropbox.");
+							swal.close();
+							isDropboxUploadDialogShown = false;
+							swal({
+								  type: 'success',
+								  title: "File "+videoFileName+" saved to Dropbox successfully",
+								  allowOutsideClick: () => false,
+								  showConfirmButton: false,
+								  timer: 2000, //dismiss after 2 seconds
+							 });
+						},
+
+						// Progress is called periodically to update the application on the progress
+						// of the user's downloads. The value passed to this callback is a float
+						// between 0 and 1. The progress callback is guaranteed to be called at least
+						// once with the value 1.
+						progress: function (progress) {
+							console.debug("Dropbox file upload in progress....");
+							if(!isDropboxUploadDialogShown) {
+								isDropboxUploadDialogShown = true;
+								swal({
+									title: 'Uploading file '+videoFileName+' to Dropbox',
+									allowOutsideClick: () => false,
+									onOpen: () => {
+										swal.showLoading();
+									}
+								});								
+							}
+						},
+
+						// Cancel is called if the user presses the Cancel button or closes the Saver.
+						cancel: function () {
+							//alert("Save to Dropbox cancelled.");
+							console.debug("Save to Dropbox cancelled.");
+							swal({
+								type: 'info',
+								title: 'Save to dropbox cancelled',
+								text: "You have closed the save window without clicking save",
+								allowOutsideClick: () => true,
+								showConfirmButton: false,
+								timer: 2000, //dismiss after 2 seconds
+							});
+						},
+
+						// Error is called in the event of an unexpected response from the server
+						// hosting the files, such as not being able to find a file. This callback is
+						// also called if there is an error on Dropbox or if the user is over quota.
+						error: function (errorMessage) {
+							//alert("Error! Files not saved to your Dropbox.");
+							swal.close();
+							isDropboxUploadDialogShown = false;
+							swal({
+								type: 'error',
+								allowOutsideClick: () => false,
+								title: 'Error in uploading file '+videoFileName,
+								text: errorMessage,
+								footer: '',
+							});
+						}
+					};
+					
+				var absoluteFilePath = (window.location.href.split('#')[0]).replace(/\/?$/, '/') + videoFileName;
+				console.debug("absoluteFilePath : "+absoluteFilePath);
+				//Dropbox.save("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+				Dropbox.save(absoluteFilePath, videoFileName, options);
 			});
 			document.getElementById("gdLink").addEventListener("click", function(){
 				var msg = "Upload video to google_drive function invoked";
@@ -315,7 +391,7 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 				var fileName = "ServerLog_"+$stateParams.videoId+".txt";
 
 				var downloadLogElement = document.createElement('a');
-				downloadLogElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(serverConsoleOutput.replace(/<br \/>/gi, '')));
+				downloadLogElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(serverConsoleOutput.replace(/<br\s?\/>/gi, '')));
 				downloadLogElement.setAttribute('download', fileName);
 				downloadLogElement.click();
 			} 
