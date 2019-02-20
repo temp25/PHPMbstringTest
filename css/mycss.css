@@ -84,12 +84,6 @@ hr {
   align-items: center;
 }
 
-option, option:checked, option:hover  {
-      color: #67c5ff;
-      text-align: center;
-      background-color: #333;
-}
-
 img {
 	border: 1px solid transparent;
 }
@@ -101,9 +95,14 @@ img:active {
 	transform: translateY(3px);
 }
 
-/* select { */
-  /* //border: 1 !important;.  /*Removes border*/ */
-/* color: #67c5ff; */
-/* border: 0.5px solid #67c5ff; */
-/* background-color: transparent; */
-/* } */
+select {
+  color: #67c5ff;
+  border: 0.5px solid #67c5ff;
+  background-color: transparent;
+}
+
+option, option:checked, option:hover  {
+      color: #67c5ff;
+      text-align: center;
+      background-color: #333;
+}
