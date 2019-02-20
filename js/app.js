@@ -162,6 +162,8 @@ var pusherEventCallback = function(event){
 								if(authorizationCode!==undefined && authRedirectUri!==undefined) {
 									popup.close();
 									clearInterval(pollTimer);
+									Cookies.expire('authCode');
+									Cookies.expire('authRedirectUri');
 									swal({
 										title: 'Uploading file '+videoFileName+' to Google Drive',
 										allowOutsideClick: () => false,
@@ -212,6 +214,17 @@ var pusherEventCallback = function(event){
 				}
 				
 			});
+			
+			document.getElementById("odLink").addEventListener("click", function(){
+				swal({
+					type: 'info',
+					title: 'Onedrive upload',
+					text: "Functionality to be added soon",
+					allowOutsideClick: () => true,
+					showConfirmButton: false,
+					timer: 1500, //dismiss after 1.5 seconds
+				});
+			}
 			
 			document.getElementById("videoUploadContainer").style.display="block";
 			
