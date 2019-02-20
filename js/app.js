@@ -84,9 +84,9 @@ var pusherEventCallback = function(event){
 							// Indicate to the user that the files have been saved.
 							//alert("Success! Files saved to your Dropbox.");
 							console.debug("Success! Files saved to your Dropbox.");
-							swal.close();
+							Swal.close();
 							isDropboxUploadDialogShown = false;
-							swal({
+							Swal.fire({
 								  type: 'success',
 								  title: "File "+videoFileName+" saved to Dropbox successfully",
 								  allowOutsideClick: () => false,
@@ -103,13 +103,13 @@ var pusherEventCallback = function(event){
 							console.debug("Dropbox file upload in progress....");
 							if(!isDropboxUploadDialogShown) {
 								isDropboxUploadDialogShown = true;
-								swal({
+								Swal.fire({
 									title: 'Uploading file '+videoFileName+' to Dropbox',
 									allowOutsideClick: () => false,
 									onOpen: () => {
-										swal.showLoading();
+										Swal.showLoading();
 									}
-								});								
+								});
 							}
 						},
 
@@ -117,10 +117,10 @@ var pusherEventCallback = function(event){
 						cancel: function () {
 							//alert("Save to Dropbox cancelled.");
 							console.debug("Save to Dropbox cancelled.");
-							swal({
+							Swal.fire({
 								type: 'info',
 								title: 'Save to dropbox cancelled',
-								text: "You have closed the save window without clicking save",
+								html: "<font size='3' color='black'>You have closed the save window without clicking save</font>",
 								allowOutsideClick: () => true,
 								showConfirmButton: false,
 								timer: 2000, //dismiss after 2 seconds
@@ -132,9 +132,9 @@ var pusherEventCallback = function(event){
 						// also called if there is an error on Dropbox or if the user is over quota.
 						error: function (errorMessage) {
 							//alert("Error! Files not saved to your Dropbox.");
-							swal.close();
+							Swal.close();
 							isDropboxUploadDialogShown = false;
-							swal({
+							Swal.fire({
 								type: 'error',
 								allowOutsideClick: () => false,
 								title: 'Error in uploading file '+videoFileName,
@@ -164,11 +164,11 @@ var pusherEventCallback = function(event){
 									clearInterval(pollTimer);
 									Cookies.expire('authCode');
 									Cookies.expire('authRedirectUri');
-									swal({
+									Swal.fire({
 										title: 'Uploading file '+videoFileName+' to Google Drive',
 										allowOutsideClick: () => false,
 										onOpen: () => {
-											swal.showLoading();
+											Swal.showLoading();
 										}
 									});
 									$.ajax({
@@ -179,10 +179,10 @@ var pusherEventCallback = function(event){
 											fileName: videoFileName,
 										},
 									}).done(function(data) {
-										swal.close();
+										Swal.close();
 										console.log("\nsuccess data : ");
 										console.log(data);
-										swal({
+										Swal({
 											  type: 'success',
 											  title: "File "+videoFileName+" saved to Google Drive successfully",
 											  allowOutsideClick: () => false,
@@ -190,10 +190,10 @@ var pusherEventCallback = function(event){
 											  timer: 2000, //dismiss after 2 seconds
 										 });
 									}).fail(function(data) {
-										swal.close();
+										Swal.close();
 										console.log("\error data : ");
 										console.log(data);
-										swal({
+										Swal.fire({
 											type: 'error',
 											allowOutsideClick: () => false,
 											title: 'Error in uploading file '+videoFileName,
@@ -204,7 +204,7 @@ var pusherEventCallback = function(event){
 								}
 					}, 10);	
 				}else{
-					swal({
+					Swal.fire({
 						type: 'error',
 						allowOutsideClick: () => false,
 						title: 'Upload error',
@@ -216,10 +216,10 @@ var pusherEventCallback = function(event){
 			});
 			
 			document.getElementById("odLink").addEventListener("click", function(){
-				swal({
+				Swal.fire({
 					type: 'info',
 					title: 'Onedrive upload',
-					text: "Functionality to be added soon",
+					html: "<font size='3' color='black'>Functionality to be added soon</font>",
 					allowOutsideClick: () => true,
 					showConfirmButton: false,
 					timer: 1500, //dismiss after 1.5 seconds
@@ -444,7 +444,7 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 	$scope.showHideConsole = function(){
 		//$scope.consoleVisibility = !$scope.consoleVisibility;
 		//$scope.showHideText = $scope.consoleVisibility ? "Hide Console" : "Show Console";
-		swal({
+		Swal.fire({
 			title: "<i>Console output</i>",
 			html: "<div style='width: 465px; height: 800px; background-color: black; color: white; overflow-x: auto; overflow-y: auto; max-width: 640px; max-height: 320px; font-size: 15px;'>"+serverConsoleOutput+"</div>", 
 			showConfirmButton: true,
@@ -453,8 +453,6 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 			cancelButtonText: "Dismiss",
 		}).then((result)=> {
 			if(result.value != undefined && result.value==true){
-				//alert("Download log functionality yet to be implemented");
-				//console.log("Download log invoked");
 				
 				var fileName = "ServerLog_"+$stateParams.videoId+".txt";
 
@@ -470,7 +468,7 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 
 
 function showSuccessDialog(successMessage){
-	 swal({
+	 Swal.fire({
 		  type: 'success',
 		  title: successMessage,
 		  allowOutsideClick: () => false,
@@ -480,7 +478,7 @@ function showSuccessDialog(successMessage){
 }
 
 function showErrorDialog(errorMessage){
-	swal({
+	Swal.fire({
 		type: 'error',
 		allowOutsideClick: () => false,
 		title: 'Error in fetching the video format',
@@ -490,17 +488,17 @@ function showErrorDialog(errorMessage){
 }
 
 function showLoading(){
-	swal({
+	Swal.fire({
 		title: 'Fetching available video formats',
 		allowOutsideClick: () => false,
 		onOpen: () => {
-			   swal.showLoading();
+			   Swal.showLoading();
 		}
 	});
 }
 
 function stopLoading(){
-	swal.close();
+	Swal.close();
 }
 
 
