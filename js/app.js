@@ -224,7 +224,7 @@ var pusherEventCallback = function(event){
 					showConfirmButton: false,
 					timer: 1500, //dismiss after 1.5 seconds
 				});
-			}
+			});
 			
 			document.getElementById("videoUploadContainer").style.display="block";
 			
