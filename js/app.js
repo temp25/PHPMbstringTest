@@ -156,6 +156,7 @@ var pusherEventCallback = function(event){
 					Cookies.expire('authRedirectUri');
 					var popup = window.open("/oauthFetch.php", "AuthFetchWindow", 'width=800, height=600');
 					var pollTimer = window.setInterval(function() {
+								console.log("polling for auth code");
 								var authorizationCode = Cookies.get('authCode');
 								var authRedirectUri = Cookies.get('authRedirectUri');
 								if(authorizationCode!==undefined && authRedirectUri!==undefined) {
@@ -199,8 +200,7 @@ var pusherEventCallback = function(event){
 										});
 									});
 								}
-							
-						}, 10);
+					}, 10);	
 				}else{
 					swal({
 						type: 'error',
