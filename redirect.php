@@ -20,8 +20,8 @@
 			var authCode = getQueryStringValue(currentPageUrl, "code");
 			if(Cookies.enabled){
 				//expire cookie automatically in 1 minute
-				Cookies.set('authCode', authCode, { expires: 60 });
-				Cookies.set('authRedirectUri', currentPageUrl, { expires: 60 }); 
+				Cookies.set('authCode', authCode);
+				Cookies.set('authRedirectUri', currentPageUrl); 
 			}
 		}
 	</script>
