@@ -31,8 +31,8 @@ class VideoFormatsTest extends TestCase
 		
 		echo PHP_EOL.PHP_EOL."Dumping expectedFormats : ".PHP_EOL;
 		var_dump($expectedFormats);
-		echo PHP_EOL.PHP_EOL."Dumping actualFormats : ".PHP_EOL;
-		var_dump($actualFormats);
+		echo PHP_EOL.PHP_EOL."Dumping actualFormats array keys : ".PHP_EOL;
+		var_dump(array_keys($actualFormats));
 		
 		$this->assertFalse($actualFormats["isError"]);
 		$this->assertEquals($expectedFormats["hls-121"], $actualFormats["hls-121"]["RESOLUTION"]);
