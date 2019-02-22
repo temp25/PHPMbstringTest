@@ -17,14 +17,12 @@ class VideoFormatsTest extends TestCase
     function testGetAvailableFormats_VideoFormats_ProducesCorrectVideoFormats()
     {
         $expectedFormats = array(
-			"hls-121" => "320x180",
-			"hls-241" => "320x180",
-			"hls-461" => "416x234",
-			"hls-861" => "640x360",
-			"hls-1362" => "720x404",
-			"hls-2063" => "1280x720",
-			"hls-3192" => "1600x900",
-			"hls-4694" => "1920x1080",
+			"hls-167" => "320x180",
+			"hls-327" => "320x180",
+			"hls-552" => "416x234",
+			"hls-960" => "640x360",
+			"hls-1472" => "720x404",
+			"hls-2188" => "1280x720",
 		);
 		
 		$actualFormats = json_decode($this->videoFormats->getAvailableFormats(), true);
@@ -35,14 +33,12 @@ class VideoFormatsTest extends TestCase
 		var_dump(array_keys($actualFormats));
 		
 		$this->assertFalse($actualFormats["isError"]);
-		$this->assertEquals($expectedFormats["hls-121"], $actualFormats["hls-121"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-241"], $actualFormats["hls-241"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-461"], $actualFormats["hls-461"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-861"], $actualFormats["hls-861"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-1362"], $actualFormats["hls-1362"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-2063"], $actualFormats["hls-2063"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-3192"], $actualFormats["hls-3192"]["RESOLUTION"]);
-		$this->assertEquals($expectedFormats["hls-4694"], $actualFormats["hls-4694"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-167"], $actualFormats["hls-167"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-327"], $actualFormats["hls-327"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-552"], $actualFormats["hls-552"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-960"], $actualFormats["hls-960"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-1472"], $actualFormats["hls-1472"]["RESOLUTION"]);
+		$this->assertEquals($expectedFormats["hls-2188"], $actualFormats["hls-2188"]["RESOLUTION"]);
     }
 	
 	function testGetAvailableFormats_VideoFormats_Produces404Error()
